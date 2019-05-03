@@ -10,6 +10,7 @@ public class Cell  implements ActionListener{
     private int value;
     private int id;
     private boolean notChecked;
+    public int score;
 
     public Cell(Board board){
         button = new JButton();
@@ -54,12 +55,17 @@ public class Cell  implements ActionListener{
         button.setEnabled(false);
         displayValue();
         notChecked = false;
-        if(value == 0) board.scanForEmptyCells();
+        if(value == 0) {
+            board.scanForEmptyCells();
+            score += value;
+        }
         if(value == -1)
         {
             board.fail();
+
             int n = JOptionPane.YES_NO_OPTION;
-            int f = JOptionPane.showConfirmDialog(null, "You want to reset?", "restart box", n);
+            int f = JOptionPane.showConfirmDialog(null, "Your Score Was " + id + " Points! \n" +
+                            "Would You Like To Play Again? ","Restart Box",  n);
             if(f == 0)
             {
                 Start.main(null);
