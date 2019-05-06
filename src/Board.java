@@ -11,6 +11,7 @@ public class Board {
     private int side = 8;
     private int limit = side - 2;
 
+
     public void setBoard() {
         JFrame frame = new JFrame();
         frame.add(addCells());
@@ -111,11 +112,27 @@ public class Board {
         return null;
     }
 
-    public void fail()   {
+    public void fail(){
         for (Cell[] a : cells) {
             for (Cell b : a) {
                 b.reveal();
             }
+        }
+        int score3;
+        score3 =  Cell.score;
+
+        int n = JOptionPane.YES_NO_OPTION;
+        int f = JOptionPane.showConfirmDialog(null, "Your Score Was " + score3 + " Points! \n" +
+                "Would You Like To Play Again? ","Restart Box",  n);
+        Cell score = new Cell();
+        if(f == 0)
+        {
+            score.setScore(0);
+            Start.main(null);
+        }
+        else
+        {
+            System.exit(0);
         }
     }
 }

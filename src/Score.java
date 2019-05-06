@@ -3,10 +3,12 @@ import java.io.*;
 import static java.nio.file.StandardOpenOption.*;
 
 public class Score {
-    public static void main(String[] args)
+    public static void main()
     {
+        int score2;
+        score2 =  Cell.score;
         Path file = Paths.get("C:\\Users\\jg318682\\Desktop\\MemeSweeper\\Score.txt");
-        String s = "AbCDF";
+        String s = "";
         byte[] data = s.getBytes();
         OutputStream output = null;
         try
@@ -18,7 +20,7 @@ public class Score {
             output.close();
         }
         catch(Exception e){
-            System.out.println("Message: " + e);
+            System.out.println(score2);
         }
     }
 }

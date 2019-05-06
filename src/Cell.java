@@ -2,15 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
+import java.awt.Color;
 
 public class Cell  implements ActionListener{
     private JButton button;
     private Board board;
-    private int value;
+    int value = 0;
     private int id;
     private boolean notChecked;
-    public int score;
+    public static int score = 0;
+
 
     public Cell(Board board){
         button = new JButton();
@@ -41,40 +42,31 @@ public class Cell  implements ActionListener{
     public void setValue(int value) {
         this.value = value;
     }
+    public void setScore(int s){
+        s = score;
+        s= 0;
+    }
+    public int getScore(){
+        return score;
+    }
 
     public void displayValue(){
         if(value==-1){
             button.setText("\u26A0");
-            button.setBackground(Color.BLUE);
+            button.setBackground(Color.RED);
         }else if(value!=0){
             button.setText(String.valueOf(value));
+            button.setBackground(Color.BLUE);
         }
     }
 
     public void checkCell(){
         button.setEnabled(false);
         displayValue();
+        button.setBackground(Color.BLUE);
         notChecked = false;
-        if(value == 0) {
-            board.scanForEmptyCells();
-            score += value;
-        }
-        if(value == -1)
-        {
-            board.fail();
-
-            int n = JOptionPane.YES_NO_OPTION;
-            int f = JOptionPane.showConfirmDialog(null, "Your Score Was " + id + " Points! \n" +
-                            "Would You Like To Play Again? ","Restart Box",  n);
-            if(f == 0)
-            {
-                Start.main(null);
-            }
-            else
-            {
-                System.exit(0);
-            }
-        }
+        if(value == 0) board.scanForEmptyCells();
+        if(value == -1) board.fail();
     }
 
     public void incrementValue(){
@@ -91,13 +83,16 @@ public class Cell  implements ActionListener{
 
     public void reveal(){
         displayValue();
+        score = value + score;
         button.setEnabled(false);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         checkCell();
-       }
     }
 
+
+}
 
